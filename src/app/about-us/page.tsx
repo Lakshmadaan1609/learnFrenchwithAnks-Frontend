@@ -52,7 +52,7 @@ export default function AboutUs() {
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   We understand that every student is unique, with different learning styles, goals, and challenges. 
-                  That's why we've developed a comprehensive approach that combines proven teaching methodologies 
+                  That&apos;s why we&apos;ve developed a comprehensive approach that combines proven teaching methodologies 
                   with personalized attention to ensure your success.
                 </p>
               </div>

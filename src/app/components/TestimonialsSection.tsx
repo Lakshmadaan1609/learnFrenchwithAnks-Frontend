@@ -61,7 +61,7 @@ export default function TestimonialsSection() {
           </h2>
           <div className="w-24 h-1 bg-gradient-accent mx-auto mb-6 rounded-full"></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Don't just take our word for it. Here's what our successful students have to say about their experience with Learn French With Anks.
+            Don&apos;t just take our word for it. Here&apos;s what our successful students have to say about their experience with Learn French With Anks.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export default function TestimonialsSection() {
             </div>
 
             <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 italic">
-              "{testimonials[currentTestimonial].quote}"
+              &ldquo;{testimonials[currentTestimonial].quote}&rdquo;
             </blockquote>
 
             <div className="text-center">

@@ -116,7 +116,7 @@ export default function AboutPreview() {
               transition={{ duration: 0.6, delay: 0.9 }}
             >
               With over <strong>5 years of experience</strong> and a passion for helping students achieve their immigration goals, 
-              we've successfully guided <strong>500+ students</strong> to achieve CLB 7+ scores in TEF and TCF exams. 
+              we&apos;ve successfully guided <strong>500+ students</strong> to achieve CLB 7+ scores in TEF and TCF exams. 
               Our personalized approach and proven methodology have helped countless students boost their CRS scores and realize their Canadian dream.
             </motion.p>
             

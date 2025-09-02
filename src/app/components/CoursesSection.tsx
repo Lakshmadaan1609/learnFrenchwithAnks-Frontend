@@ -82,7 +82,7 @@ export default function CoursesSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             Choose from our comprehensive range of French language courses designed to help you achieve your goals, 
-            whether it's passing TEF/TCF exams or building fluency for your Canada PR journey.
+            whether it&apos;s passing TEF/TCF exams or building fluency for your Canada PR journey.
           </motion.p>
         </motion.div>
 

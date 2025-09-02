@@ -32,7 +32,7 @@ export default function Contact() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -65,7 +65,7 @@ export default function Contact() {
                 
                 {submitStatus === 'success' && (
                   <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                    Thank you for your message! We'll get back to you soon.
+                    Thank you for your message! We&apos;ll get back to you soon.
                   </div>
                 )}
                 
@@ -154,8 +154,8 @@ export default function Contact() {
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
                   <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                    Ready to take the next step in your French learning journey? We're here to help you achieve your goals. 
-                    Whether you're preparing for TEF/TCF exams or want to improve your French for Canada PR, we have the expertise to guide you.
+                                    Ready to take the next step in your French learning journey? We&apos;re here to help you achieve your goals.
+                Whether you&apos;re preparing for TEF/TCF exams or want to improve your French for Canada PR, we have the expertise to guide you.
                   </p>
                 </div>
 
