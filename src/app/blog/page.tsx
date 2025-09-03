@@ -76,12 +76,12 @@ export default function Blog() {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-primary text-white py-20">
+        <section className="bg-gradient-primary text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               Our Blog
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl text-blue-900 max-w-3xl mx-auto">
               Expert insights, tips, and strategies to help you succeed in your French learning journey
             </p>
           </div>
@@ -223,7 +223,7 @@ export default function Blog() {
                   </div>
 
                   {/* Newsletter Signup */}
-                  <div className="bg-primary text-white rounded-lg p-6">
+                  <div className="bg-gradient-primary text-white rounded-lg p-6">
                     <h3 className="text-lg font-bold mb-4">Stay Updated</h3>
                     <p className="text-blue-100 mb-4 text-sm">
                       Subscribe to our newsletter for the latest French learning tips and exam strategies.

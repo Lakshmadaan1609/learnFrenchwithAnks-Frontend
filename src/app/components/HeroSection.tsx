@@ -3,10 +3,49 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Parallax } from 'react-scroll-parallax';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import MovingText from './MovingText';
 import { useScrollTextHighlight } from './useScrollTextHighlight';
+
+// Typing Animation Component
+function TypingText({ text, speed = 100, repeatInterval = 15000 }: { 
+  text: string; 
+  speed?: number; 
+  repeatInterval?: number; 
+}) {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    let typingTimer: NodeJS.Timeout;
+    let repeatTimer: NodeJS.Timeout;
+
+    const typeText = () => {
+      if (currentIndex < text.length) {
+        typingTimer = setTimeout(() => {
+          setDisplayText(text.slice(0, currentIndex + 1));
+          setCurrentIndex(currentIndex + 1);
+        }, speed);
+      }
+    };
+
+    typeText();
+
+    // Set up repeat interval
+    repeatTimer = setTimeout(() => {
+      setCurrentIndex(0);
+      setDisplayText('');
+    }, repeatInterval);
+
+    return () => {
+      clearTimeout(typingTimer);
+      clearTimeout(repeatTimer);
+    };
+  }, [currentIndex, text, speed, repeatInterval]);
+
+  return <span className="inline-block">{displayText}</span>;
+}
 
 export default function HeroSection() {
   const textRef = useRef(null);
@@ -55,10 +94,10 @@ export default function HeroSection() {
   }, []);
 
   const floatingElements = [
-    { text: "TEF", delay: 0, y: -20 },
-    { text: "TCF", delay: 0.5, y: 20 },
-    { text: "CLB 7+", delay: 1, y: -15 },
-    { text: "Canada PR", delay: 1.5, y: 25 },
+    { text: "TEF", delay: 0, y: -20, size: "text-6xl md:text-8xl", left: 5, top: 30 },
+    { text: "TCF", delay: 0.5, y: 20, size: "text-5xl md:text-7xl", left: 80, top: 45 },
+    { text: "CLB 7+", delay: 1, y: -15, size: "text-4xl md:text-6xl", left: 60, top: 5 },
+
   ];
 
   return (
@@ -73,28 +112,68 @@ export default function HeroSection() {
         {floatingElements.map((element, index) => (
           <motion.div
             key={index}
-            className="absolute text-white/10 text-6xl md:text-8xl font-bold"
+            className={`absolute font-bold ${element.size}`}
             initial={{ 
               x: 0,
               y: 0,
-              opacity: 0 
+              opacity: 0,
+              scale: 0.8,
+              rotate: -3
             }}
             animate={{ 
-              y: [null, element.y],
-              opacity: [0, 0.1, 0],
+              y: [null, element.y, null],
+              opacity: [0, 0.4, 0.3],
+              scale: [0.8, 1, 1.02],
+              rotate: [-3, 0, 2, 0],
+              x: [0, 5, 0]
             }}
             transition={{
-              duration: 8,
+              duration: 10,
               delay: element.delay,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
+              times: [0, 0.3, 0.7, 1]
             }}
             style={{
-              left: `${20 + index * 20}%`,
-              top: `${30 + index * 15}%`,
+              left: `${element.left}%`,
+              top: `${element.top}%`,
             }}
           >
-            {element.text}
+            <div className="relative">
+                              {/* Subtle glow effect */}
+                <motion.div 
+                  className="absolute inset-0 bg-white/5 rounded-2xl blur-sm"
+                  animate={{
+                    opacity: [0.05, 0.08, 0.05],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{
+                    duration: 6,
+                    delay: element.delay + 1,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                              {/* Text with better contrast */}
+                <motion.span 
+                  className="relative z-10 text-white/90 font-extrabold tracking-wider drop-shadow-lg"
+                  animate={{
+                    textShadow: [
+                      "0 0 10px rgba(255,255,255,0.2)",
+                      "0 0 15px rgba(255,255,255,0.4)",
+                      "0 0 10px rgba(255,255,255,0.2)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 5,
+                    delay: element.delay + 0.3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  {element.text}
+                </motion.span>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -152,7 +231,7 @@ export default function HeroSection() {
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <motion.h1 
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-blue-600/10 via-blue-400/10 to-blue-600/10 bg-clip-text text-transparent"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -175,12 +254,16 @@ export default function HeroSection() {
           </motion.h1>
           
           <motion.p 
-            className="text-xl sm:text-2xl mb-8 text-black dark:text-white max-w-3xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl mb-8 text-white max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Personalized TEF & TCF coaching to help you achieve CLB 7+ and boost your CRS score.
+            <TypingText 
+              text="Personalized TEF & TCF coaching to help you achieve CLB 7+ and boost your CRS score."
+              speed={50}
+              repeatInterval={15000}
+            />
           </motion.p>
           
           <motion.div 
@@ -229,12 +312,12 @@ export default function HeroSection() {
       </div>
 
       {/* Moving Text Banner */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-sm">
+      <div className="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-md border-t border-white/20">
         <MovingText 
           text="🎯 TEF • TCF • CLB 7+ • Canada PR • French Mastery • Immigration Success 🎯"
           speed={30}
           direction="left"
-          className="text-white text-lg font-semibold py-2"
+          className="text-white text-lg font-semibold py-3 relative"
         />
       </div>
     </section>

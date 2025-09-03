@@ -20,8 +20,11 @@ export default function MovingText({
 
   return (
     <div className={`overflow-hidden whitespace-nowrap ${className}`}>
+      {/* Glassmorphism background */}
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-md border-t border-white/20"></div>
+      
       <motion.div
-        className="flex"
+        className="flex relative z-10"
         animate={{
           x: direction === 'left' ? [0, -100] : [0, 100],
         }}

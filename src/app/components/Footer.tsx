@@ -8,10 +8,10 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-2xl font-bold text-white bg-red-500 px-4 py-2 rounded-lg mb-4 inline-block">
                 Learn French With Anks
               </h3>
-              <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
+              <p className="text-white leading-relaxed mb-6 max-w-md">
                 Your trusted partner in mastering French for Canada PR. We provide personalized TEF & TCF coaching 
                 to help you achieve CLB 7+ scores and boost your CRS points.
               </p>
@@ -41,30 +41,30 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg text-white bg-red-500 px-3 py-1 rounded-lg font-semibold mb-4 inline-block">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/" className="text-white hover:text-red-300 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about-us" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about-us" className="text-white hover:text-red-300 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/courses" className="text-white hover:text-red-300 transition-colors">
                   Courses
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/blog" className="text-white hover:text-red-300 transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/contact" className="text-white hover:text-red-300 transition-colors">
                   Contact
                 </Link>
               </li>
@@ -73,25 +73,25 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Our Services</h4>
+            <h4 className="text-lg text-white bg-red-500 px-3 py-1 rounded-lg font-semibold mb-4 inline-block">Our Services</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/courses" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/courses" className="text-white hover:text-red-300 transition-colors">
                   TEF/TCF Preparation
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/courses" className="text-white hover:text-red-300 transition-colors">
                   French for Beginners
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/courses" className="text-white hover:text-red-300 transition-colors">
                   Intermediate French
                 </Link>
               </li>
               <li>
-                <Link href="/consult-now" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/consult-now" className="text-white hover:text-red-300 transition-colors">
                   Free Consultation
                 </Link>
               </li>
@@ -102,14 +102,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+            <div className="text-white text-sm mb-4 md:mb-0">
               © 2024 Learn French With Anks. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              <Link href="/privacy" className="text-white hover:text-red-300 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+              <Link href="/terms" className="text-white hover:text-red-300 transition-colors">
                 Terms of Service
               </Link>
             </div>

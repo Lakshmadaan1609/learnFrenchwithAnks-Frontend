@@ -21,6 +21,9 @@ export default function AboutPreview() {
 
   return (
     <section className="py-16 bg-white relative overflow-hidden">
+      {/* Red Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent pointer-events-none"></div>
+      
       {/* Background Parallax Elements */}
       <Parallax speed={-5} className="absolute top-10 left-10 opacity-10">
         <div className="text-8xl font-bold text-primary">FR</div>
@@ -135,7 +138,7 @@ export default function AboutPreview() {
                   transition={{ duration: 0.3 }}
                 >
                   <motion.div 
-                    className="text-2xl font-bold text-primary"
+                    className="text-2xl font-bold text-white"
                     initial={{ scale: 0 }}
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ 
@@ -147,7 +150,7 @@ export default function AboutPreview() {
                   >
                     {stat.value}{stat.suffix}
                   </motion.div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-sm text-white">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>

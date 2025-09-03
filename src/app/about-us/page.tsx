@@ -26,12 +26,12 @@ export default function AboutUs() {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-primary text-white py-20">
+        <section className="bg-gradient-primary text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               About Learn French With Anks
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl text-blue-900 max-w-3xl mx-auto">
               Your trusted partner in mastering French for Canada PR success
             </p>
           </div>
@@ -121,13 +121,13 @@ export default function AboutUs() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-16 bg-primary text-white">
+        <section className="py-16 bg-gradient-primary text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Our Success Stories
               </h2>
-              <p className="text-xl text-blue-100">
+              <p className="text-xl text-blue-900">
                 Numbers that speak for our commitment to excellence
               </p>
             </div>

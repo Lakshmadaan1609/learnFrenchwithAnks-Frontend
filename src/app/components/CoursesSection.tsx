@@ -28,7 +28,7 @@ const courses = [
   },
   {
     title: "Intermediate & Advanced (B1-B2)",
-    description: "Advance your French skills to achieve fluency and confidence in professional and academic settings.",
+    description: "Advance your French skills to achieve fluency and confidence.",
     icon: (
       <svg className="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -46,6 +46,9 @@ export default function CoursesSection() {
 
   return (
     <section className="py-16 bg-gray-50 relative overflow-hidden">
+      {/* Red Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent pointer-events-none"></div>
+      
       {/* Background Parallax Elements */}
       <Parallax speed={-3} className="absolute top-20 left-10 opacity-5">
         <div className="text-6xl font-bold text-primary">COURSES</div>
@@ -90,11 +93,15 @@ export default function CoursesSection() {
           {courses.map((course, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-lg shadow-lg p-8 hover-lift transition-all duration-300"
+              className="bg-white rounded-lg shadow-lg p-8 cursor-pointer"
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              whileHover={{ 
+                y: -8, 
+                scale: 1.03,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+              }}
             >
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-50 rounded-full mb-4">
@@ -133,7 +140,7 @@ export default function CoursesSection() {
           className="text-center mt-12"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.8 }}
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
