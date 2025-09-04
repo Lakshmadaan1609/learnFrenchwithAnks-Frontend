@@ -19,8 +19,6 @@ function TypingText({ text, speed = 100, repeatInterval = 15000 }: {
 
   useEffect(() => {
     let typingTimer: NodeJS.Timeout;
-    // eslint-disable-next-line prefer-const
-    let repeatTimer: NodeJS.Timeout;
 
     const typeText = () => {
       if (currentIndex < text.length) {
@@ -34,7 +32,7 @@ function TypingText({ text, speed = 100, repeatInterval = 15000 }: {
     typeText();
 
     // Set up repeat interval
-    repeatTimer = setTimeout(() => {
+    const repeatTimer = setTimeout(() => {
       setCurrentIndex(0);
       setDisplayText('');
     }, repeatInterval);
