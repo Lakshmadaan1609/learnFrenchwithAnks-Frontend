@@ -19,6 +19,7 @@ function TypingText({ text, speed = 100, repeatInterval = 15000 }: {
 
   useEffect(() => {
     let typingTimer: NodeJS.Timeout;
+    // eslint-disable-next-line prefer-const
     let repeatTimer: NodeJS.Timeout;
 
     const typeText = () => {

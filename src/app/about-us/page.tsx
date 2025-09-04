@@ -6,7 +6,7 @@ const teamMembers = [
   {
     name: "Ankita Agrawal",
     role: "Founder & Trainer",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    image: "/assests/ankita.webp",
     bio: "With over 5 years of experience in French language education, Ankita has helped hundreds of students achieve their immigration goals. She specializes in TEF and TCF exam preparation and has a proven track record of helping students achieve CLB 7+ scores.",
     qualifications: ["Master's in French Literature", "Certified TEF/TCF Trainer", "5+ Years Experience", "500+ Students Taught"]
   },
