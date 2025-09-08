@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { authApi, tokenManager, ApiError, LoginResponse } from '../../lib/api';
 
 // Login Component
-const LoginForm = ({ onLogin }: { onLogin: (username: string, password: string) => void }) => {
+const LoginForm = ({ onLogin }: { onLogin: (response: LoginResponse) => void }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,10 +18,12 @@ const LoginForm = ({ onLogin }: { onLogin: (username: string, password: string) 
     setIsLoading(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      onLogin(username, password);
+      const response = await authApi.login({ username, password });
+      onLogin(response);
     } catch (err) {
-      if (err instanceof Error) {
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else if (err instanceof Error) {
         setError(err.message);
       } else {
         setError('Login failed. Please try again.');
@@ -95,8 +98,8 @@ const LoginForm = ({ onLogin }: { onLogin: (username: string, password: string) 
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>Default credentials:</p>
-          <p className="font-mono bg-gray-100 px-2 py-1 rounded mt-1">admin / admin123</p>
+          <p>Use your SuperAdmin credentials</p>
+          <p className="text-xs text-gray-400 mt-1">Contact system administrator if you need access</p>
         </div>
       </div>
     </div>
@@ -106,27 +109,64 @@ const LoginForm = ({ onLogin }: { onLogin: (username: string, password: string) 
 export default function SuperAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [userInfo, setUserInfo] = useState<{ username: string; role: string } | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  // Check if user is already authenticated on component mount
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const isLoggedIn = await tokenManager.isLoggedIn();
+        if (isLoggedIn) {
+          const token = tokenManager.getToken();
+          if (token) {
+            const response = await authApi.validateToken(token);
+            setIsAuthenticated(true);
+            setUserInfo(response.user);
+          }
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        tokenManager.removeToken();
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   // Authentication handler
-  const handleLogin = (username: string, password: string) => {
-    // Simple authentication - in production, this should be done securely on the backend
-    const trimmedUsername = username.trim().toLowerCase();
-    const trimmedPassword = password.trim();
+  const handleLogin = (response: LoginResponse) => {
+    // Store the JWT token
+    tokenManager.setToken(response.access_token);
     
-    console.log('Login attempt:', { username: trimmedUsername, password: trimmedPassword }); // Debug log
+    // Update authentication state
+    setIsAuthenticated(true);
+    setUserInfo(response.user);
     
-    if (trimmedUsername === 'admin' && trimmedPassword === 'admin123') {
-      setIsAuthenticated(true);
-    } else {
-      throw new Error('Invalid username or password. Please use: admin / admin123');
-    }
+    console.log('Login successful:', response.message);
   };
 
   // Logout handler
   const handleLogout = () => {
+    tokenManager.removeToken();
     setIsAuthenticated(false);
+    setUserInfo(null);
     setActiveTab('dashboard'); // Reset to default tab
   };
+
+  // Show loading state while checking authentication
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
 
   // If not authenticated, show login form
   if (!isAuthenticated) {
@@ -134,11 +174,11 @@ export default function SuperAdmin() {
   }
 
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'users', label: 'Users', icon: '👥' },
-    { id: 'courses', label: 'Courses', icon: '📚' },
-    { id: 'analytics', label: 'Analytics', icon: '📈' },
-    { id: 'settings', label: 'Settings', icon: '⚙️' },
+    { id: 'dashboard', label: 'Dashboard'},
+    { id: 'users', label: 'Users'},
+    { id: 'courses', label: 'Courses'},
+    { id: 'analytics', label: 'Analytics'},
+    { id: 'settings', label: 'Settings'},
   ];
 
   const stats = [
@@ -395,11 +435,17 @@ export default function SuperAdmin() {
               <div className="bg-gray-50 rounded-lg p-3">
                 <div className="flex items-center">
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm font-semibold">A</span>
+                    <span className="text-white text-sm font-semibold">
+                      {userInfo?.username.charAt(0).toUpperCase() || 'A'}
+                    </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">Admin User</p>
-                    <p className="text-xs text-gray-500 truncate">Logged in</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {userInfo?.username || 'Admin User'}
+                    </p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {userInfo?.role || 'Logged in'}
+                    </p>
                   </div>
                 </div>
                 <button
